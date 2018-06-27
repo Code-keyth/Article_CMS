@@ -37,6 +37,7 @@
           <li class="layui-nav-item">
             <a href="javascript:;">admin</a>
             <dl class="layui-nav-child"> <!-- 二级菜单 -->
+
               <dd><a onclick="x_admin_show('个人信息','http://www.baidu.com')">个人信息</a></dd>
               <dd><a onclick="x_admin_show('切换帐号','http://www.baidu.com')">切换帐号</a></dd>
               <dd><a href="./login.html">退出</a></dd>
@@ -52,29 +53,6 @@
     <div class="left-nav">
       <div id="side-nav">
         <ul id="nav">
-            <li>
-                <a href="javascript:;">
-                    <i class="iconfont">&#xe6b8;</i>
-                    <cite>文章管理</cite>
-                    <i class="iconfont nav_right">&#xe697;</i>
-                </a>
-                <ul class="sub-menu">
-                    <li>
-                        <a _href="/admin/Article">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>文章列表</cite>
-                            
-                        </a>
-                    </li >
-                    <li>
-                        <a _href="/admin/Article/add">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>文章添加</cite>
-                            
-                        </a>
-                    </li>
-                </ul>
-            </li>
             <li>
                 <a href="javascript:;">
                     <i class="iconfont">&#xe723;</i>
@@ -96,6 +74,37 @@
                     </li >
                 </ul>
             </li>
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe6b8;</i>
+                    <cite>文章管理</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="/admin/Article">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>文章列表</cite>
+                            
+                        </a>
+                    </li >
+                    <li>
+                        <a _href="/admin/Article/add">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>文章添加</cite>
+                            
+                        </a>
+                    </li>
+                    <li>
+                        <a _href="/admin/Article/Recycle">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>文章回收站</cite>
+
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
             <li>
                 <a href="javascript:;">
                     <i class="iconfont">&#xe726;</i>

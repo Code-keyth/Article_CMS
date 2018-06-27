@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-  
+
   <head>
     <meta charset="UTF-8">
     <title>欢迎页面-X-admin2.0</title>
@@ -19,104 +19,118 @@
       <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  
   <body>
     <div class="x-body">
-        <form class="layui-form">
+        <form method="post" enctype="multipart/form-data" class="layui-form">
           <div class="layui-form-item">
               <label for="L_email" class="layui-form-label">
-                  <span class="x-red">*</span>邮箱
+                  <span class="x-red">*</span>标题
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="L_email" name="email" required="" lay-verify="email"
-                  autocomplete="off" class="layui-input">
-              </div>
-              <div class="layui-form-mid layui-word-aux">
-                  <span class="x-red">*</span>将会成为您唯一的登入名
+                  <input type="text" value="{{$Article->title}}" name="title"class="layui-input">
               </div>
           </div>
           <div class="layui-form-item">
-              <label for="L_username" class="layui-form-label">
-                  <span class="x-red">*</span>昵称
+              <label class="layui-form-label">
+                  <span class="x-red">*</span>所属栏目
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="L_username" name="username" required="" lay-verify="nikename"
-                  autocomplete="off" class="layui-input">
+                  <select name="title_id" class="layui-select">
+                        @foreach($columns as $item)
+                            <option @if($item->id == $Article->title_id) selected @endif value="{{$item->id}}">{{$item->title}}</option>
+                            @endforeach
+                  </select>
               </div>
+          </div>
+
+
+
+            <input hidden name="id" value="{{$Article->id}}">
+            {{csrf_field()}}
+          <div class="layui-form-item">
+              <label  class="layui-form-label">
+                  <span class="x-red">*</span>作者
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" value="{{$Article->author}}" name="author" class="layui-input">
+              </div>
+
           </div>
           <div class="layui-form-item">
-              <label for="L_pass" class="layui-form-label">
-                  <span class="x-red">*</span>密码
+              <label class="layui-form-label">
+                  <span class="x-red">*</span>权重
               </label>
               <div class="layui-input-inline">
-                  <input type="password" id="L_pass" name="pass" required="" lay-verify="pass"
-                  autocomplete="off" class="layui-input">
-              </div>
-              <div class="layui-form-mid layui-word-aux">
-                  6到16个字符
+                  <input type="text" value="{{$Article->weight}}" name="weight" class="layui-input">
               </div>
           </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">
+                    <span class="x-red">*</span>点击数
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" value="{{$Article->click}}" name="click" class="layui-input">
+                </div>
+            </div>
+
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">
+                    <span class="x-red">*</span>点击数
+                </label>
+                <div class="layui-input-inline">
+                    <button type="button" class="layui-btn" id="test1">
+                        <i class="layui-icon">&#xe67c;</i>上传图片
+                    </button>
+
+                    <input type="file" name="test123">
+                </div>
+            </div>
+
+
+            <div id="test001" class="layui-form-item">
+                <label for="L_repass" class="layui-form-label">
+                    <span class="x-red"></span>栏目内容
+                </label>
+                <div class="layui-input-block">
+                    <script style="min-height:500px;max-width: 800px;min-width: 450px;" id="content" name="content" type="text/plain">{!! $Article->content !!}</script>
+                    </div>
+                    </div>
           <div class="layui-form-item">
               <label for="L_repass" class="layui-form-label">
-                  <span class="x-red">*</span>确认密码
               </label>
-              <div class="layui-input-inline">
-                  <input type="password" id="L_repass" name="repass" required="" lay-verify="repass"
-                  autocomplete="off" class="layui-input">
-              </div>
-          </div>
-          <div class="layui-form-item">
-              <label for="L_repass" class="layui-form-label">
-              </label>
-              <button  class="layui-btn" lay-filter="add" lay-submit="">
+
+              <button  class="layui-btn" type="submit">
                   增加
               </button>
           </div>
       </form>
     </div>
-    <script>
-      layui.use(['form','layer'], function(){
-          $ = layui.jquery;
-        var form = layui.form
-        ,layer = layui.layer;
-      
-        //自定义验证规则
-        form.verify({
-          nikename: function(value){
-            if(value.length < 5){
-              return '昵称至少得5个字符啊';
-            }
-          }
-          ,pass: [/(.+){6,12}$/, '密码必须6到12位']
-          ,repass: function(value){
-              if($('#L_pass').val()!=$('#L_repass').val()){
-                  return '两次密码不一致';
-              }
-          }
-        });
+    <script type="text/javascript" src="/public/common/UE/ueditor.config.js"></script>
+    <script type="text/javascript" src="/public/common/UE/ueditor.all.js"></script>
+    <script type="text/javascript">
+        var ue = UE.getEditor('content');
 
-        //监听提交
-        form.on('submit(add)', function(data){
-          console.log(data);
-          //发异步，把数据提交给php
-          layer.alert("增加成功", {icon: 6},function () {
-              // 获得frame索引
-              var index = parent.layer.getFrameIndex(window.name);
-              //关闭当前frame
-              parent.layer.close(index);
-          });
-          return false;
+        layui.use('upload', function(){
+            var upload = layui.upload;
+
+            //执行实例
+            var uploadInst = upload.render({
+                elem: '#test1' //绑定元素
+                ,data:{
+                    "_token":"{{ csrf_token() }}"
+                }
+                ,url: '/admin/Article/upload '
+                ,done: function(res){
+                    alert(res);
+                }
+                ,error: function(){
+                    //请求异常回调
+                }
+            });
         });
-        
-        
-      });
-  </script>
-    <script>var _hmt = _hmt || []; (function() {
-        var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-      })();</script>
+    </script>
+
   </body>
 
 </html>
